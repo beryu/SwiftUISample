@@ -1,0 +1,15 @@
+/*
+ # Naming rules
+
+ `Feature.featureDetail.component.(sub-feature)`
+
+ - Separate by period.
+ - Use Lower Camel Case
+ - In 1st layer, Use Upper Camel Case.
+ - 1st layer means the feature, like a category.
+ - 2nd layer means the feature in detail.
+ - 3rd layer means the component.
+ - (Optional) In 4th layer means the sub-feature.
+ */
+
+"Common.title.text" = "GtHubビューアー";

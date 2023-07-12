@@ -20,7 +20,15 @@ targets:
     info:
       path: GitHubViewer/info.plist
       properties:
+        CFBundleAllowMixedLocalizations: YES
         CFBundleShortVersionString: $(MARKETING_VERSION)
         LSRequiresIPhoneOS: YES
         UILaunchScreen: ""
+    dependencies:
+      - package: Common
+        product: SharedResource
 
+packages:
+  # Local packages
+  Common:
+    path: ./Modules/Common

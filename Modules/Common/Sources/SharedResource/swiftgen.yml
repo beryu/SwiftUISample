@@ -1,0 +1,9 @@
+strings:
+  inputs: 
+    - Text/en.lproj/Localizable.strings
+  filter: .+\.strings$
+  outputs:
+    templateName: structured-swift5
+    output: Generated/Strings.swift
+    params:
+      publicAccess: true
