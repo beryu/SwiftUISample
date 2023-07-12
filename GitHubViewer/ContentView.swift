@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  SwiftUISample
+//  GitHubViewer
 //
 //  Created by Ryuta Kibe on 2023/07/07.
 //
