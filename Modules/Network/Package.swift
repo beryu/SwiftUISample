@@ -14,13 +14,14 @@ let package = Package(
       targets: ["API"]),
   ],
   dependencies: [
-    // Dependencies declare other packages that this package depends on.
-    // .package(url: /* package url */, from: "1.0.0"),
+    .package(path: "../Common"),
   ],
   targets: [
     .target(
       name: "API",
-      dependencies: []),
+      dependencies: [
+        .product(name: "Constants", package: "Common"),
+      ]),
     .testTarget(
       name: "APITests",
       dependencies: ["API"]),

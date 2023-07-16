@@ -10,13 +10,16 @@ let package = Package(
     .iOS(.v15),
   ],
   products: [
-    // Products define the executables and libraries a package produces, making them visible to other packages.
+    .library(name: "Constants", targets: ["Constants"]),
     .library(name: "SharedResource", targets: ["SharedResource"]),
   ],
   dependencies: [
     .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
   ],
   targets: [
+    .target(
+      name: "Constants"
+    ),
     .target(
       name: "SharedResource",
       plugins: [

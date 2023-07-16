@@ -64,6 +64,7 @@ public extension APIRequest {
     }
 
     let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
     do {
       return try decoder.decode(Response.self, from: data)
     } catch {
