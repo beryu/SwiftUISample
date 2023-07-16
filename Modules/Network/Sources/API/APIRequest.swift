@@ -3,18 +3,37 @@ import Foundation
 public protocol APIRequest: Equatable {
   associatedtype Response: Decodable
 
-  var baseURL: URL { get }
+  var baseURL: URL? { get }
   var path: String { get }
   var method: APIMethod { get }
   var headerDict: [String: String] { get }
+  var queryParams: [String: String?] { get }
 
-  func urlRequest() -> URLRequest
+  func urlRequest() -> URLRequest?
   func request(urlSession: URLSession) async throws -> Response
 }
 
 public extension APIRequest {
-  func urlRequest() -> URLRequest {
-    let url = baseURL.appendingPathComponent(path)
+  func urlRequest() -> URLRequest? {
+    guard let baseURL else {
+      return nil
+    }
+    var urlComponents = URLComponents(
+      url: baseURL.appendingPathComponent(path),
+      resolvingAgainstBaseURL: false
+    )
+    let queryItems: [URLQueryItem] = queryParams.compactMap { (key: String, value: String?) in
+      guard let value else {
+        return nil
+      }
+      return .init(name: key, value: value)
+    }
+    if !queryItems.isEmpty {
+      urlComponents?.queryItems = queryItems
+    }
+    guard let url = urlComponents?.url else {
+      return nil
+    }
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = method.rawValue
     for (field, value) in headerDict {
@@ -31,7 +50,9 @@ public extension APIRequest {
   }
 
   func request(urlSession: URLSession) async throws -> Response {
-    let urlRequest = urlRequest()
+    guard let urlRequest = urlRequest() else {
+      throw APIError.badURL
+    }
     let (data, urlResponse) = try await urlSession.data(for: urlRequest)
     guard let httpResponse = urlResponse as? HTTPURLResponse else {
       // Maybe a bug
@@ -43,6 +64,7 @@ public extension APIRequest {
     }
 
     let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
     do {
       return try decoder.decode(Response.self, from: data)
     } catch {
