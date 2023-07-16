@@ -27,8 +27,12 @@ targets:
     dependencies:
       - package: Common
         product: SharedResource
+      - package: Network
+        product: API
 
 packages:
   # Local packages
   Common:
     path: ./Modules/Common
+  Network:
+    path: ./Modules/Network
