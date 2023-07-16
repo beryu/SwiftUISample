@@ -9,6 +9,6 @@ setup: ## Install build tools and generate project
 .PHONY: generate
 generate: ## Generate Xcode project
 	@echo "🚀 Starting Xcode project generation..."
-	@xcodegen generate
+	@mint run xcodegen generate
 	@echo "✅ Generation has completed!"
 
