@@ -1,3 +1,4 @@
+import Dependencies
 import Foundation
 import XCTest
 @testable import API
@@ -28,11 +29,15 @@ final class APIRequestTests: XCTestCase {
     URLProtocolMock.responseDict = [
       sampleAPIRequest.urlRequest()!.url!: .init(statusCode: 403, data: Data())
     ]
+
     urlSessionConfiguration.protocolClasses = [URLProtocolMock.self]
     let urlSession = URLSession(configuration: urlSessionConfiguration)
+    let apiClient: APIClient = withDependencies({ _ in }, operation: {
+      .live(urlSession: urlSession)
+    })
 
     do {
-      _ = try await sampleAPIRequest.request(urlSession: urlSession)
+      _ = try await apiClient.request(sampleAPIRequest)
       XCTFail("Error was expected, but no error.")
     } catch {
       switch (error as! APIError) {
@@ -52,9 +57,12 @@ final class APIRequestTests: XCTestCase {
     ]
     urlSessionConfiguration.protocolClasses = [URLProtocolMock.self]
     let urlSession = URLSession(configuration: urlSessionConfiguration)
+    let apiClient: APIClient = withDependencies({ _ in }, operation: {
+      .live(urlSession: urlSession)
+    })
 
     do {
-      _ = try await sampleAPIRequest.request(urlSession: urlSession)
+      _ = try await apiClient.request(sampleAPIRequest)
       XCTFail("Error was expected, but no error.")
     } catch {
       switch (error as! APIError) {
@@ -79,9 +87,12 @@ final class APIRequestTests: XCTestCase {
     ]
     urlSessionConfiguration.protocolClasses = [URLProtocolMock.self]
     let urlSession = URLSession(configuration: urlSessionConfiguration)
+    let apiClient: APIClient = withDependencies({ _ in }, operation: {
+      .live(urlSession: urlSession)
+    })
 
     do {
-      let response = try await sampleAPIRequest.request(urlSession: urlSession)
+      let response = try await apiClient.request(sampleAPIRequest)
       XCTAssertEqual(response.status, "success")
     } catch {
       XCTFail("Unexpected error: " + error.localizedDescription)

@@ -10,7 +10,6 @@ public protocol APIRequest: Equatable {
   var queryParams: [String: String?] { get }
 
   func urlRequest() -> URLRequest?
-  func request(urlSession: URLSession) async throws -> Response
 }
 
 public extension APIRequest {
@@ -43,32 +42,5 @@ public extension APIRequest {
       )
     }
     return urlRequest
-  }
-
-  func request() async throws -> Response {
-    try await request(urlSession: .shared)
-  }
-
-  func request(urlSession: URLSession) async throws -> Response {
-    guard let urlRequest = urlRequest() else {
-      throw APIError.badURL
-    }
-    let (data, urlResponse) = try await urlSession.data(for: urlRequest)
-    guard let httpResponse = urlResponse as? HTTPURLResponse else {
-      // Maybe a bug
-      throw APIError.unknown
-    }
-    // Accept http status codes only in 200 - 399
-    guard (200 ..< 400).contains(httpResponse.statusCode) else {
-      throw APIError.failureWithStatusCode(httpResponse.statusCode)
-    }
-
-    let decoder = JSONDecoder()
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    do {
-      return try decoder.decode(Response.self, from: data)
-    } catch {
-      throw APIError.responseParseError(error)
-    }
   }
 }
