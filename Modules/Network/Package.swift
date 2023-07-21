@@ -11,9 +11,11 @@ let package = Package(
   products: [
     .library(
       name: "API",
-      targets: ["API"]),
+      targets: ["API"]
+    ),
   ],
   dependencies: [
+    .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.5.1"),
     .package(path: "../Common"),
   ],
   targets: [
@@ -21,9 +23,15 @@ let package = Package(
       name: "API",
       dependencies: [
         .product(name: "Constants", package: "Common"),
-      ]),
+        .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
     .testTarget(
       name: "APITests",
-      dependencies: ["API"]),
+      dependencies: [
+        "API",
+        .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
   ]
 )
