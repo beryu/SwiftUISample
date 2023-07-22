@@ -27,8 +27,10 @@ targets:
     dependencies:
       - package: Common
         product: SharedResource
-      - package: Network
-        product: API
+      - package: Repository
+        product: Entities
+      - package: Repository
+        product: UserRepository
 
 packages:
   # Local packages
@@ -36,3 +38,5 @@ packages:
     path: ./Modules/Common
   Network:
     path: ./Modules/Network
+  Repository:
+    path: ./Modules/Repository
