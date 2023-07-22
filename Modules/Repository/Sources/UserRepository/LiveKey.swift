@@ -8,7 +8,7 @@ extension UserRepository: DependencyKey {
 
     return Self(
       searchUsers: { query, page -> [UserEntity] in
-        let response = try await apiClient.request(API.GitHubSearchUsersRequest(query: query, page: page))
+        let response = try await apiClient.request(GitHubSearchUsersRequest(query: query, page: page))
         if response.incompleteResults {
           throw UserRepositoryError.incomplete
         }
