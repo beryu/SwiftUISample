@@ -10,6 +10,7 @@ let package = Package(
   ],
   products: [
     .library(name: "Entities", targets: ["Entities"]),
+    .library(name: "RepoRepository", targets: ["RepoRepository"]),
     .library(name: "UserRepository", targets: ["UserRepository"]),
   ],
   dependencies: [
@@ -21,12 +22,24 @@ let package = Package(
       name: "Entities"
     ),
     .target(
+      name: "RepoRepository",
+      dependencies: [
+        .product(name: "API", package: "Network"),
+        "Entities",
+        .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
+    .target(
       name: "UserRepository",
       dependencies: [
         .product(name: "API", package: "Network"),
         "Entities",
         .product(name: "Dependencies", package: "swift-dependencies"),
       ]
+    ),
+    .testTarget(
+      name: "RepoRepositoryTests",
+      dependencies: ["RepoRepository"]
     ),
     .testTarget(
       name: "UserRepositoryTests",

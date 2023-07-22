@@ -30,6 +30,8 @@ targets:
       - package: Repository
         product: Entities
       - package: Repository
+        product: RepoRepository
+      - package: Repository
         product: UserRepository
 
 packages:
