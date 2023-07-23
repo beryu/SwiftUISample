@@ -43,9 +43,12 @@ let package = Package(
         .product(name: "Dependencies", package: "swift-dependencies"),
       ]
     ),
-//    .testTarget(
-//      name: "RootTests",
-//      dependencies: ["Root"]
-//    ),
+    .testTarget(
+      name: "UserListTests",
+      dependencies: [
+        "UserList",
+        .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
   ]
 )

@@ -14,3 +14,6 @@
 
 "Common.title.text" = "GitHub Viewer";
 "Common.loading.text" = "Loading...";
+
+"UserList.loadError.alert.title" = "Error was occured when loading";
+"UserList.loadError.alert.message" = "Please scroll to top and pull to refresh";

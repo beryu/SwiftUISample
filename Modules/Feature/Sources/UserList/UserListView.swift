@@ -38,6 +38,12 @@ public struct UserListView: View {
         }
       }
     }
+    .alert(isPresented: $viewModel.isErrorAlertShown) {
+      Alert(
+        title: Text(L10n.UserList.LoadError.Alert.title),
+        message: Text(L10n.UserList.LoadError.Alert.message)
+      )
+    }
     .onAppear {
       Task {
         await viewModel.initializeIfNeeded()
@@ -63,48 +69,20 @@ struct UserListView_Previews: PreviewProvider {
 
 struct UserRepositoryMock: UserRepository {
   func users(since: Int?) async throws -> [UserEntity] {
-    return [
-      UserEntity(
-        id: 1,
-        login: "beryu",
+    if since ?? 0 >= 150 {
+      throw UserRepositoryError.incomplete
+    }
+    if since ?? 0 >= 100 {
+      return [] // NOTE: Comment out when test error dialog
+    }
+    return (0 ..< 20).map { index in
+      let id = index + (since ?? 0)
+      return UserEntity(
+        id: id,
+        login: "beryu \(id)",
         avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-      UserEntity(
-        id: 2,
-        login: "beryu",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-      UserEntity(
-        id: 3,
-        login: "beryu",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-      UserEntity(
-        id: 4,
-        login: "beryu",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-      UserEntity(
-        id: 5,
-        login: "beryu",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-      UserEntity(
-        id: 6,
-        login: "beryu",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-      UserEntity(
-        id: 7,
-        login: "beryu",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-      UserEntity(
-        id: 8,
-        login: "beryu",
-        avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
-      ),
-    ]
+      )
+    }
   }
 
   func searchUsers(query: String, page: Int) async throws -> [UserEntity] {

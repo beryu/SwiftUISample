@@ -14,3 +14,6 @@
 
 "Common.title.text" = "GtHubビューアー";
 "Common.loading.text" = "読み込み中...";
+
+"UserList.loadError.alert.title" = "読み込み中にエラーが起きました";
+"UserList.loadError.alert.message" = "画面上端までスクロールして、再読み込みしてください";

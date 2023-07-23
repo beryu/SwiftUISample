@@ -5,10 +5,10 @@ import UserRepository
 
 @MainActor
 final class UserListViewModel: ObservableObject {
+  @Published var isErrorAlertShown: Bool = false
   @Published private(set) var users: [UserEntity] = []
   @Published private(set) var isLoading: Bool = false
   @Published private(set) var isFinished: Bool = false
-  @Published private(set) var isErrorAlertShown: Bool = false
 
   @Dependency(\.userRepository) private var userRepository
 
@@ -40,7 +40,7 @@ final class UserListViewModel: ObservableObject {
   }
 
   func loadNextPageIfNeeded() async {
-    guard !isLoading else {
+    guard !isLoading, !isFinished else {
       return
     }
     await load(since: users.last?.id)
@@ -48,6 +48,7 @@ final class UserListViewModel: ObservableObject {
 
   func refresh() async {
     isFinished = false
+    isLoading = false
     await load(since: nil)
   }
 }
