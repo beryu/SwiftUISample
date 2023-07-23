@@ -7,14 +7,15 @@ import XCTest
 final class UserListViewModelTests: XCTestCase {
   var viewModel: UserListViewModel!
 
-  func testInitialValues() async {
+  override func setUp() async throws {
     viewModel = withDependencies {
       $0.userRepository = UserRepositoryMock()
     } operation: {
       UserListViewModel()
     }
+  }
 
-    // test initial values
+  func testInitialValues() async {
     XCTAssertTrue(viewModel.users.isEmpty)
     XCTAssertFalse(viewModel.isLoading)
     XCTAssertFalse(viewModel.isFinished)
@@ -22,12 +23,6 @@ final class UserListViewModelTests: XCTestCase {
   }
 
   func testLoad_firstPage() async {
-    viewModel = withDependencies {
-      $0.userRepository = UserRepositoryMock()
-    } operation: {
-      UserListViewModel()
-    }
-
     await viewModel.load(since: nil)
 
     // loaded data is applied
@@ -38,12 +33,6 @@ final class UserListViewModelTests: XCTestCase {
   }
 
   func testLoad_fail() async {
-    viewModel = withDependencies {
-      $0.userRepository = UserRepositoryMock()
-    } operation: {
-      UserListViewModel()
-    }
-
     await viewModel.load(since: nil)
     await viewModel.load(since: 150)
 
@@ -55,12 +44,6 @@ final class UserListViewModelTests: XCTestCase {
   }
 
   func testLoad_finish() async {
-    viewModel = withDependencies {
-      $0.userRepository = UserRepositoryMock()
-    } operation: {
-      UserListViewModel()
-    }
-
     await viewModel.load(since: nil)
     await viewModel.load(since: 100)
 

@@ -7,14 +7,15 @@ import XCTest
 final class SearchUserViewModelTests: XCTestCase {
   var viewModel: SearchUserViewModel!
 
-  func testInitialValues() async {
+  override func setUp() async throws {
     viewModel = withDependencies {
       $0.userRepository = UserRepositoryMock()
     } operation: {
       SearchUserViewModel()
     }
+  }
 
-    // test initial values
+  func testInitialValues() async {
     XCTAssertTrue(viewModel.users.isEmpty)
     XCTAssertFalse(viewModel.isLoading)
     XCTAssertFalse(viewModel.isFinished)
@@ -22,12 +23,6 @@ final class SearchUserViewModelTests: XCTestCase {
   }
 
   func testSearch_firstPage() async {
-    viewModel = withDependencies {
-      $0.userRepository = UserRepositoryMock()
-    } operation: {
-      SearchUserViewModel()
-    }
-
     await viewModel.search(query: "beryu")
 
     // loaded data is applied
@@ -38,12 +33,6 @@ final class SearchUserViewModelTests: XCTestCase {
   }
 
   func testSearch_fail() async {
-    viewModel = withDependencies {
-      $0.userRepository = UserRepositoryMock()
-    } operation: {
-      SearchUserViewModel()
-    }
-
     await viewModel.search(query: "beryu")
     await viewModel.load(page: 5)
 
@@ -55,12 +44,6 @@ final class SearchUserViewModelTests: XCTestCase {
   }
 
   func testSearch_finish() async {
-    viewModel = withDependencies {
-      $0.userRepository = UserRepositoryMock()
-    } operation: {
-      SearchUserViewModel()
-    }
-
     await viewModel.search(query: "beryu")
     await viewModel.load(page: 4)
 
