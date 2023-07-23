@@ -20,10 +20,12 @@ public struct RepoRowView: View {
       Text(name)
         .cellTitleText()
       HStack(spacing: 4) {
-        Text(language)
-          .bodyText()
-        Spacer()
-          .frame(width: 4)
+        if !language.isEmpty {
+          Text(language)
+            .bodyText()
+          Spacer()
+            .frame(width: 4)
+        }
         Text("\(stargazersCount)")
           .bodyBoldText()
         if stargazersCount == 1 {
@@ -34,8 +36,10 @@ public struct RepoRowView: View {
             .bodyText()
         }
       }
-      Text(description)
-        .bodyText()
+      if !description.isEmpty {
+        Text(description)
+          .bodyText()
+      }
     }
   }
 }

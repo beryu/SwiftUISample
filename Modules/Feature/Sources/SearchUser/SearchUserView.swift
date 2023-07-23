@@ -102,6 +102,10 @@ struct UserRepositoryMock: UserRepository {
     unimplemented()
   }
 
+  func userDetail(login: String) async throws -> UserDetailEntity {
+    unimplemented()
+  }
+
   func searchUsers(query: String, page: Int) async throws -> [UserEntity] {
     if page >= 5 {
       throw UserRepositoryError.incomplete

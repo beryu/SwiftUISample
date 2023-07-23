@@ -86,6 +86,10 @@ struct UserRepositoryMock: UserRepository {
     }
   }
 
+  func userDetail(login: String) async throws -> UserDetailEntity {
+    unimplemented()
+  }
+
   func searchUsers(query: String, page: Int) async throws -> [UserEntity] {
     unimplemented()
   }

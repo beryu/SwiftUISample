@@ -9,14 +9,15 @@ final class RepoRepositoryTests: XCTestCase {
 
   override func setUp() async throws {
     apiClient = APIClientMock(response: [
-      GitHubUserReposRequest(user: "beryu", page: 1).hashValue: [
+      GitHubUserReposRequest(login: "beryu", page: 1).hashValue: [
         GitHubUserRepoResponse(
           id: 1,
           name: "Name1",
           fullName: "FullName1",
           stargazersCount: 11,
           description: "This is description1",
-          language: "Swift1"
+          language: "Swift1",
+          fork: false
         ),
         GitHubUserRepoResponse(
           id: 2,
@@ -24,7 +25,8 @@ final class RepoRepositoryTests: XCTestCase {
           fullName: "FullName2",
           stargazersCount: 12,
           description: "This is description2",
-          language: "Swift2"
+          language: "Swift2",
+          fork: true
         )
       ]
     ])
@@ -36,11 +38,12 @@ final class RepoRepositoryTests: XCTestCase {
     }, operation: {
       RepoRepositoryKey.liveValue
     })
-    let repositories = try await repoRepository.repositories(user: "beryu", page: 1)
+    let repositories = try await repoRepository.repositories(login: "beryu", page: 1)
     XCTAssertEqual(repositories.count, 2)
     XCTAssertEqual(repositories.first!.name, "Name1")
     XCTAssertEqual(repositories.first!.fullName, "FullName1")
     XCTAssertEqual(repositories.first!.description, "This is description1")
     XCTAssertEqual(repositories.first!.language, "Swift1")
+    XCTAssertFalse(repositories.first!.isFork)
   }
 }
