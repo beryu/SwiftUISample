@@ -17,3 +17,8 @@
 
 "UserList.loadError.alert.title" = "Error was occured when loading";
 "UserList.loadError.alert.message" = "Please scroll to top and pull to refresh";
+
+"SearchUser.searchBar.placeholder" = "Enter an user name...";
+"SearchUser.empty.text" = "Start search with enter an user name to the above text field";
+"SearchUser.loadError.alert.title" = "Error was occured when loading";
+"SearchUser.loadError.alert.message" = "Please scroll to top and pull to refresh";

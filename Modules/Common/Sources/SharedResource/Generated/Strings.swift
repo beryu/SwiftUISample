@@ -30,6 +30,24 @@ public enum L10n {
       public static let text = L10n.tr("Localizable", "Common.title.text", fallback: "GitHub Viewer")
     }
   }
+  public enum SearchUser {
+    public enum Empty {
+      /// Start search with enter an user name to the above text field
+      public static let text = L10n.tr("Localizable", "SearchUser.empty.text", fallback: "Start search with enter an user name to the above text field")
+    }
+    public enum LoadError {
+      public enum Alert {
+        /// Please scroll to top and pull to refresh
+        public static let message = L10n.tr("Localizable", "SearchUser.loadError.alert.message", fallback: "Please scroll to top and pull to refresh")
+        /// Error was occured when loading
+        public static let title = L10n.tr("Localizable", "SearchUser.loadError.alert.title", fallback: "Error was occured when loading")
+      }
+    }
+    public enum SearchBar {
+      /// Enter an user name...
+      public static let placeholder = L10n.tr("Localizable", "SearchUser.searchBar.placeholder", fallback: "Enter an user name...")
+    }
+  }
   public enum UserList {
     public enum LoadError {
       public enum Alert {
