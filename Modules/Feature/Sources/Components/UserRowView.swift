@@ -11,7 +11,7 @@ public struct UserRowView: View {
   }
 
   public var body: some View {
-    HStack {
+    HStack(spacing: 16) {
       AsyncImage(
         url: imageURL,
         content: { image in
