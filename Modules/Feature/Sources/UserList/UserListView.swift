@@ -36,6 +36,7 @@ public struct UserListView: View {
               }
           }
         }
+        .listStyle(PlainListStyle())
       }
     }
     .alert(isPresented: $viewModel.isErrorAlertShown) {
