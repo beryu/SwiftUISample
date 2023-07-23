@@ -16,11 +16,11 @@ final class UserDetailViewModel: ObservableObject {
   @Published private(set) var isUserDetailLoading: Bool = false
   @Published private(set) var isRepoListLoading: Bool = false
   @Published private(set) var isRepoListFinished: Bool = false
+  private(set) var login: String
 
   @Dependency(\.userRepository) private var userRepository
   @Dependency(\.repoRepository) private var repoRepository
 
-  private var login: String
   private var currentPage: Int = 1
 
   public init(login: String) {

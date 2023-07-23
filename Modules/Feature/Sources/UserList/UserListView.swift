@@ -16,31 +16,34 @@ public struct UserListView: View {
 
   public var body: some View {
     NavigationView {
-      if viewModel.users.isEmpty && viewModel.isLoading {
-        VStack(spacing: 8) {
-          ProgressView()
-          Text(L10n.Common.Loading.text)
-            .bodyText()
-        }
-      } else {
-        List {
-          ForEach(0 ..< viewModel.users.count, id: \.self) { index in
-            let user = viewModel.users[index]
-            NavigationLink(destination: UserDetailView(login: user.login)) {
-              UserRowView(name: user.login, imageURL: user.avatarURL)
-                .onAppear {
-                  // for infinite loading
-                  if index > viewModel.users.count - 5 {
-                    Task {
-                      await viewModel.loadNextPageIfNeeded()
+      Group {
+        if viewModel.users.isEmpty && viewModel.isLoading {
+          VStack(spacing: 8) {
+            ProgressView()
+            Text(L10n.Common.Loading.text)
+              .bodyText()
+          }
+        } else {
+          List {
+            ForEach(0 ..< viewModel.users.count, id: \.self) { index in
+              let user = viewModel.users[index]
+              NavigationLink(destination: UserDetailView(login: user.login)) {
+                UserRowView(name: user.login, imageURL: user.avatarURL)
+                  .onAppear {
+                    // for infinite loading
+                    if index > viewModel.users.count - 5 {
+                      Task {
+                        await viewModel.loadNextPageIfNeeded()
+                      }
                     }
                   }
-                }
+              }
             }
           }
+          .listStyle(PlainListStyle())
         }
-        .listStyle(PlainListStyle())
       }
+      .navigationTitle(L10n.Common.Title.text)
     }
     .alert(isPresented: $viewModel.isErrorAlertShown) {
       Alert(
