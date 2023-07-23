@@ -1,20 +1,29 @@
 import Foundation
 import Dependencies
 
-extension APIClient {
-  static func live(urlSession: URLSession) -> Self {
-    .init(
-      request: { urlRequest in
-        try await urlSession.data(for: urlRequest)
-      }
-    )
+public enum APIClientKey: DependencyKey {
+  public static var liveValue: any APIClient = APIClientImpl(urlSession: .shared)
+}
+
+extension DependencyValues {
+  public var apiClient: any APIClient {
+    get { self[APIClientKey.self] }
+    set { self[APIClientKey.self] = newValue }
+  }
+}
+
+struct APIClientImpl: APIClient {
+  private var urlSession: URLSession
+
+  init(urlSession: URLSession) {
+    self.urlSession = urlSession
   }
 
-  public func request<T: APIRequest>(_ apiRequest: T) async throws -> T.Response {
+  func request<T: APIRequest>(apiRequest: T) async throws -> T.Response {
     guard let urlRequest = apiRequest.urlRequest() else {
       throw APIError.badURL
     }
-    let (data, urlResponse) = try await request(urlRequest)
+    let (data, urlResponse) = try await request(urlRequest: urlRequest)
     guard let httpResponse = urlResponse as? HTTPURLResponse else {
       // Maybe a bug
       throw APIError.unknown
@@ -31,5 +40,9 @@ extension APIClient {
     } catch {
       throw APIError.responseParseError(error)
     }
+  }
+
+  private func request(urlRequest: URLRequest) async throws -> (Data, URLResponse) {
+    try await urlSession.data(for: urlRequest)
   }
 }

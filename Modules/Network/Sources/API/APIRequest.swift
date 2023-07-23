@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol APIRequest: Equatable {
+public protocol APIRequest: Equatable, Hashable {
   associatedtype Response: Decodable
 
   var baseURL: URL? { get }

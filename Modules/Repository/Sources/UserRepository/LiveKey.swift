@@ -2,18 +2,25 @@ import API
 import Dependencies
 import Entities
 
-extension UserRepository: DependencyKey {
-  public static var liveValue: Self = {
-    @Dependency(\.apiClient) var apiClient
+public enum UserRepositoryKey: DependencyKey {
+  public static var liveValue: UserRepository = UserRepositoryImpl()
+}
 
-    return Self(
-      searchUsers: { query, page -> [UserEntity] in
-        let response = try await apiClient.request(GitHubSearchUsersRequest(query: query, page: page))
-        if response.incompleteResults {
-          throw UserRepositoryError.incomplete
-        }
-        return response.items.map({ UserEntity.init(user: $0) })
-      }
-    )
-  }()
+extension DependencyValues {
+  public var userRepository: UserRepository {
+    get { self[UserRepositoryKey.self] }
+    set { self[UserRepositoryKey.self] = newValue }
+  }
+}
+
+struct UserRepositoryImpl: UserRepository {
+  @Dependency(\.apiClient) var apiClient
+
+  func searchUsers(query: String, page: Int) async throws -> [UserEntity] {
+    let response = try await apiClient.request(apiRequest: GitHubSearchUsersRequest(query: query, page: page))
+    if response.incompleteResults {
+      throw UserRepositoryError.incomplete
+    }
+    return response.items.map({ UserEntity.init(user: $0) })
+  }
 }
