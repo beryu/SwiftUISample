@@ -76,6 +76,8 @@ public struct UserDetailView: View {
       }
       .listStyle(PlainListStyle())
     }
+    .navigationTitle(viewModel.login)
+    .navigationBarTitleDisplayMode(.inline)
     .alert(isPresented: $viewModel.isErrorAlertShown) {
       Alert(
         title: Text(L10n.UserDetail.LoadError.Alert.title),

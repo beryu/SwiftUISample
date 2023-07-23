@@ -67,6 +67,10 @@ public enum L10n {
       /// Enter an user name...
       public static let placeholder = L10n.tr("Localizable", "SearchUser.searchBar.placeholder", fallback: "Enter an user name...")
     }
+    public enum Title {
+      /// User Search
+      public static let text = L10n.tr("Localizable", "SearchUser.title.text", fallback: "User Search")
+    }
   }
   public enum UserDetail {
     public enum LoadError {

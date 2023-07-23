@@ -19,17 +19,16 @@ public struct SearchUserView: View {
       List {
         Section(header: Group {
           HStack {
+            Image(systemName: "magnifyingglass")
             TextField(L10n.SearchUser.SearchBar.placeholder, text: $viewModel.inputText)
               .autocapitalization(.none)
               .autocorrectionDisabled()
-              .padding(.horizontal, 8)
               .padding(.vertical, 16)
               .onSubmit {
                 Task {
                   await viewModel.search(query: viewModel.inputText)
                 }
               }
-            Image(systemName: "magnifyingglass")
           }
         }) {
           if viewModel.users.isEmpty && viewModel.isLoading && !viewModel.query.isEmpty {
@@ -67,6 +66,7 @@ public struct SearchUserView: View {
         }
       }
       .listStyle(PlainListStyle())
+      .navigationTitle(L10n.SearchUser.Title.text)
     }
     .alert(isPresented: $viewModel.isErrorAlertShown) {
       Alert(
