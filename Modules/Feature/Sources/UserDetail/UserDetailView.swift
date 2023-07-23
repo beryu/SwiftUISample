@@ -26,6 +26,13 @@ public struct UserDetailView: View {
             following: user.following,
             imageURL: user.avatarURL
           )
+        } else {
+          HStack {
+            Spacer()
+            ProgressView()
+              .frame(height: 108)
+            Spacer()
+          }
         }
         if viewModel.repos.isEmpty && viewModel.isRepoListLoading {
           HStack {
