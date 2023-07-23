@@ -41,6 +41,7 @@ public struct RepoRowView: View {
           .bodyText()
       }
     }
+    .padding(.vertical, 8)
   }
 }
 
