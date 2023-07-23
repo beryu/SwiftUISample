@@ -11,6 +11,10 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum L10n {
   public enum Common {
+    public enum Loading {
+      /// Loading...
+      public static let text = L10n.tr("Localizable", "Common.loading.text", fallback: "Loading...")
+    }
     public enum Title {
       /// # Naming rules
       /// 

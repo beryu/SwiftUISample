@@ -11,6 +11,7 @@ let package = Package(
   ],
   products: [
     .library(name: "Constants", targets: ["Constants"]),
+    .library(name: "SharedExtension", targets: ["SharedExtension"]),
     .library(name: "SharedResource", targets: ["SharedResource"]),
   ],
   dependencies: [
@@ -19,6 +20,9 @@ let package = Package(
   targets: [
     .target(
       name: "Constants"
+    ),
+    .target(
+      name: "SharedExtension"
     ),
     .target(
       name: "SharedResource",

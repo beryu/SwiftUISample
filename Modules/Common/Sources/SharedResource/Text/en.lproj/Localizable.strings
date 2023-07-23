@@ -13,3 +13,4 @@
  */
 
 "Common.title.text" = "GitHub Viewer";
+"Common.loading.text" = "Loading...";

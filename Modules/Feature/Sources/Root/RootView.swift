@@ -1,11 +1,12 @@
 import SwiftUI
+import UserList
 
 public struct RootView: View {
   public init() {}
   
   public var body: some View {
     TabView {
-      Text("Page A")
+      UserListView()
         .tabItem {
           VStack {
             Image(systemName: "list.bullet")

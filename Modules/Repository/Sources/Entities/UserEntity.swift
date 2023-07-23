@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserEntity {
+public struct UserEntity: Equatable {
   public var id: Int
   public var login: String
   public var avatarURL: URL
