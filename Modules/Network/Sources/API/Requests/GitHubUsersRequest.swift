@@ -10,14 +10,17 @@ public struct GitHubUsersRequest: GitHubRequest {
     .get
   }
   public var queryParams: [String: String?] {
-    [
-      "page": "\(page)",
+    guard let since else {
+      return [:]
+    }
+    return [
+      "since": "\(since)",
     ]
   }
   
-  public var page: Int // starts from 1
+  public var since: Int? // user id
 
-  public init(page: Int) {
-    self.page = page
+  public init(since: Int?) {
+    self.since = since
   }
 }
