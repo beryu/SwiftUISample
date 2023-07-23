@@ -1,10 +1,11 @@
 import Components
 import Dependencies
 import Entities
-import UserRepository
 import SharedExtension
 import SharedResource
 import SwiftUI
+import UserDetail
+import UserRepository
 
 public struct SearchUserView: View {
   @ObservedObject private var viewModel: SearchUserViewModel
@@ -14,7 +15,7 @@ public struct SearchUserView: View {
   }
 
   public var body: some View {
-    Group {
+    NavigationView {
       List {
         Section(header: Group {
           HStack {
@@ -50,15 +51,17 @@ public struct SearchUserView: View {
           } else {
             ForEach(0 ..< viewModel.users.count, id: \.self) { index in
               let user = viewModel.users[index]
-              UserRowView(name: user.login, imageURL: user.avatarURL)
-                .onAppear {
-                  // for infinite loading
-                  if index > viewModel.users.count - 5 {
-                    Task {
-                      await viewModel.loadNextPageIfNeeded()
+              NavigationLink(destination: UserDetailView(login: user.login)) {
+                UserRowView(name: user.login, imageURL: user.avatarURL)
+                  .onAppear {
+                    // for infinite loading
+                    if index > viewModel.users.count - 5 {
+                      Task {
+                        await viewModel.loadNextPageIfNeeded()
+                      }
                     }
                   }
-                }
+              }
             }
           }
         }
@@ -99,6 +102,10 @@ struct SearchUserViewView_Previews: PreviewProvider {
 
 struct UserRepositoryMock: UserRepository {
   func users(since: Int?) async throws -> [UserEntity] {
+    unimplemented()
+  }
+
+  func userDetail(login: String) async throws -> UserDetailEntity {
     unimplemented()
   }
 

@@ -1,12 +1,13 @@
 import Foundation
 
-public struct RepoEntity {
+public struct RepoEntity: Equatable {
   public var id: Int
   public var name: String
   public var fullName: String
   public var stargazersCount: Int
   public var description: String?
   public var language: String?
+  public var isFork: Bool
 
   public init(
     id: Int,
@@ -14,7 +15,8 @@ public struct RepoEntity {
     fullName: String,
     stargazersCount: Int,
     description: String? = nil,
-    language: String? = nil
+    language: String? = nil,
+    isFork: Bool
   ) {
     self.id = id
     self.name = name
@@ -22,5 +24,6 @@ public struct RepoEntity {
     self.stargazersCount = stargazersCount
     self.description = description
     self.language = language
+    self.isFork = isFork
   }
 }

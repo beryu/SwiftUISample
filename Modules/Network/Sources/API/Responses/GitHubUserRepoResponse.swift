@@ -7,6 +7,7 @@ public struct GitHubUserRepoResponse: Decodable {
   public var stargazersCount: Int
   public var description: String?
   public var language: String?
+  public var fork: Bool
 
   public init(
     id: Int,
@@ -14,7 +15,8 @@ public struct GitHubUserRepoResponse: Decodable {
     fullName: String,
     stargazersCount: Int,
     description: String? = nil,
-    language: String? = nil
+    language: String? = nil,
+    fork: Bool
   ) {
     self.id = id
     self.name = name
@@ -22,5 +24,6 @@ public struct GitHubUserRepoResponse: Decodable {
     self.stargazersCount = stargazersCount
     self.description = description
     self.language = language
+    self.fork = fork
   }
 }

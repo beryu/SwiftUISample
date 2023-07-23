@@ -46,7 +46,7 @@ final class APIClientTests: XCTestCase {
 //  }
 
 //  func testGitHubUserReposRequest() async throws {
-//    let request = GitHubUserReposRequest(user: "beryu", page: 1)
+//    let request = GitHubUserReposRequest(login: "beryu", page: 1)
 //    do {
 //      let response = try await apiClient.request(apiRequest: request)
 //      XCTAssertTrue(response.count > 0)

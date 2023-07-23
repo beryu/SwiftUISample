@@ -14,6 +14,11 @@
 
 "Common.title.text" = "GtHubビューアー";
 "Common.loading.text" = "読み込み中...";
+"Common.follower.text.single" = "フォロワー";
+"Common.follower.text.multi" = "フォロワー";
+"Common.following.text" = "フォロー中";
+"Common.star.text.single" = "スター";
+"Common.star.text.multi" = "スター";
 
 "UserList.loadError.alert.title" = "読み込み中にエラーが起きました";
 "UserList.loadError.alert.message" = "画面上端までスクロールして、再読み込みしてください";
@@ -22,3 +27,6 @@
 "SearchUser.empty.text" = "上部の検索欄にユーザー名を入力して検索";
 "SearchUser.loadError.alert.title" = "読み込み中にエラーが起きました";
 "SearchUser.loadError.alert.message" = "画面上端までスクロールして、再読み込みしてください";
+
+"UserDetail.loadError.alert.title" = "読み込み中にエラーが起きました";
+"UserDetail.loadError.alert.message" = "画面上端までスクロールして、再読み込みしてください";

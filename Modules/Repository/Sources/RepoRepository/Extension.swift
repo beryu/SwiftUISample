@@ -9,7 +9,8 @@ extension RepoEntity {
       fullName: repo.fullName,
       stargazersCount: repo.stargazersCount,
       description: repo.description,
-      language: repo.language
+      language: repo.language,
+      isFork: repo.fork
     )
   }
 }

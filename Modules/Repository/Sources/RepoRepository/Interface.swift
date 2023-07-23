@@ -3,5 +3,5 @@ import Dependencies
 import Entities
 
 public protocol RepoRepository {
-  func repositories(user: String, page: Int) async throws -> [RepoEntity]
+  func repositories(login: String, page: Int) async throws -> [RepoEntity]
 }

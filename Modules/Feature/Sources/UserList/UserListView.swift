@@ -1,10 +1,11 @@
 import Components
 import Dependencies
 import Entities
-import UserRepository
 import SharedExtension
 import SharedResource
 import SwiftUI
+import UserDetail
+import UserRepository
 
 public struct UserListView: View {
   @ObservedObject private var viewModel: UserListViewModel
@@ -14,7 +15,7 @@ public struct UserListView: View {
   }
 
   public var body: some View {
-    Group {
+    NavigationView {
       if viewModel.users.isEmpty && viewModel.isLoading {
         VStack(spacing: 8) {
           ProgressView()
@@ -25,15 +26,17 @@ public struct UserListView: View {
         List {
           ForEach(0 ..< viewModel.users.count, id: \.self) { index in
             let user = viewModel.users[index]
-            UserRowView(name: user.login, imageURL: user.avatarURL)
-              .onAppear {
-                // for infinite loading
-                if index > viewModel.users.count - 5 {
-                  Task {
-                    await viewModel.loadNextPageIfNeeded()
+            NavigationLink(destination: UserDetailView(login: user.login)) {
+              UserRowView(name: user.login, imageURL: user.avatarURL)
+                .onAppear {
+                  // for infinite loading
+                  if index > viewModel.users.count - 5 {
+                    Task {
+                      await viewModel.loadNextPageIfNeeded()
+                    }
                   }
                 }
-              }
+            }
           }
         }
         .listStyle(PlainListStyle())
@@ -84,6 +87,10 @@ struct UserRepositoryMock: UserRepository {
         avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
       )
     }
+  }
+
+  func userDetail(login: String) async throws -> UserDetailEntity {
+    unimplemented()
   }
 
   func searchUsers(query: String, page: Int) async throws -> [UserEntity] {

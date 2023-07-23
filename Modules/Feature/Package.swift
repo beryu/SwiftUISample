@@ -12,6 +12,7 @@ let package = Package(
   products: [
     .library(name: "Components", targets: ["Components"]),
     .library(name: "Root", targets: ["Root"]),
+    .library(name: "UserDetail", targets: ["UserDetail"]),
     .library(name: "UserList", targets: ["UserList"]),
     .library(name: "SearchUser", targets: ["SearchUser"]),
   ],
@@ -25,6 +26,7 @@ let package = Package(
       name: "Components",
       dependencies: [
         .product(name: "SharedExtension", package: "Common"),
+        .product(name: "SharedResource", package: "Common"),
       ]
     ),
     .target(
@@ -35,9 +37,22 @@ let package = Package(
       ]
     ),
     .target(
+      name: "UserDetail",
+      dependencies: [
+        "Components",
+        .product(name: "SharedExtension", package: "Common"),
+        .product(name: "SharedResource", package: "Common"),
+        .product(name: "Entities", package: "Repository"),
+        .product(name: "RepoRepository", package: "Repository"),
+        .product(name: "UserRepository", package: "Repository"),
+        .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
+    .target(
       name: "UserList",
       dependencies: [
         "Components",
+        "UserDetail",
         .product(name: "SharedExtension", package: "Common"),
         .product(name: "SharedResource", package: "Common"),
         .product(name: "Entities", package: "Repository"),
@@ -49,6 +64,7 @@ let package = Package(
       name: "SearchUser",
       dependencies: [
         "Components",
+        "UserDetail",
         .product(name: "SharedExtension", package: "Common"),
         .product(name: "SharedResource", package: "Common"),
         .product(name: "Entities", package: "Repository"),
@@ -60,6 +76,13 @@ let package = Package(
       name: "SearchUserTests",
       dependencies: [
         "SearchUser",
+        .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
+    .testTarget(
+      name: "UserDetailTests",
+      dependencies: [
+        "UserDetail",
         .product(name: "Dependencies", package: "swift-dependencies"),
       ]
     ),
