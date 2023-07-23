@@ -9,6 +9,18 @@ final class UserRepositoryTests: XCTestCase {
 
   override func setUp() async throws {
     apiClient = APIClientMock(response: [
+      GitHubUsersRequest(page: 1).hashValue: [
+        GitHubUserResponse(
+          id: 1,
+          login: "beryu",
+          avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202968?v=4")!
+        ),
+        GitHubUserResponse(
+          id: 2,
+          login: "test",
+          avatarURL: URL(string: "https://avatars.githubusercontent.com/u/202969?v=4")!
+        )
+      ],
       GitHubSearchUsersRequest(query: "beryu", page: 1).hashValue: GitHubSearchUsersResponse(
         items: [
           GitHubUserResponse(
@@ -25,6 +37,18 @@ final class UserRepositoryTests: XCTestCase {
         incompleteResults: false
       )
     ])
+  }
+
+  func testUsers() async throws {
+    let userRepository: UserRepository = withDependencies({
+      $0.apiClient = apiClient
+    }, operation: {
+      UserRepositoryKey.liveValue
+    })
+    let users = try await userRepository.users(page: 1)
+    XCTAssertEqual(users.count, 2)
+    XCTAssertEqual(users.first!.login, "beryu")
+    XCTAssertEqual(users.first!.avatarURL.absoluteString, "https://avatars.githubusercontent.com/u/202968?v=4")
   }
 
   func testSearchUsers() async throws {
