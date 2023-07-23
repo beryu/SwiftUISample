@@ -9,12 +9,9 @@ final class APIClientTests: XCTestCase {
   @Dependency(\.apiClient) var apiClient
   
 //  func testGitHubUsersRequest() async throws {
-//    let apiClient: APIClient = withDependencies({ _ in }, operation: {
-//      .live(urlSession: .shared)
-//    })
 //    let searchRequest = GitHubUsersRequest(page: 1)
 //    do {
-//      let response = try await apiClient.request(searchRequest)
+//      let response = try await apiClient.request(apiRequest: searchRequest)
 //      XCTAssertTrue(response.count > 0)
 //      XCTAssertTrue(response.first!.id > 0)
 //      XCTAssertEqual(response.first!.login, "mojombo")

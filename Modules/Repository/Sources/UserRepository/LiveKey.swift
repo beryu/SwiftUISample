@@ -16,6 +16,11 @@ extension DependencyValues {
 struct UserRepositoryImpl: UserRepository {
   @Dependency(\.apiClient) var apiClient
 
+  func users(page: Int) async throws -> [UserEntity] {
+    let response = try await apiClient.request(apiRequest: GitHubUsersRequest(page: page))
+    return response.map({ UserEntity.init(user: $0) })
+  }
+
   func searchUsers(query: String, page: Int) async throws -> [UserEntity] {
     let response = try await apiClient.request(apiRequest: GitHubSearchUsersRequest(query: query, page: page))
     if response.incompleteResults {
