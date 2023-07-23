@@ -7,14 +7,26 @@ import XCTest
 //       It's just for integration test with GitHub API.
 final class APIClientTests: XCTestCase {
   @Dependency(\.apiClient) var apiClient
-  
+
 //  func testGitHubUsersRequest() async throws {
-//    let searchRequest = GitHubUsersRequest(since: nil)
+//    let request = GitHubUsersRequest(since: nil)
 //    do {
-//      let response = try await apiClient.request(apiRequest: searchRequest)
+//      let response = try await apiClient.request(apiRequest: request)
 //      XCTAssertTrue(response.count > 0)
 //      XCTAssertTrue(response.first!.id > 0)
 //      XCTAssertEqual(response.first!.login, "mojombo")
+//    } catch {
+//      XCTFail("Unexpected error: " + error.localizedDescription)
+//    }
+//  }
+
+//  func testGitHubUserDetailRequest() async throws {
+//    let request = GitHubUserDetailRequest(login: "beryu")
+//    do {
+//      let response = try await apiClient.request(apiRequest: request)
+//      XCTAssertEqual(response.name, "Ryuta Kibe")
+//      XCTAssertEqual(response.id, 202968)
+//      XCTAssertEqual(response.login, "beryu")
 //    } catch {
 //      XCTFail("Unexpected error: " + error.localizedDescription)
 //    }
@@ -34,9 +46,9 @@ final class APIClientTests: XCTestCase {
 //  }
 
 //  func testGitHubUserReposRequest() async throws {
-//    let searchRequest = GitHubUserReposRequest(user: "beryu", page: 1)
+//    let request = GitHubUserReposRequest(user: "beryu", page: 1)
 //    do {
-//      let response = try await apiClient.request(apiRequest: searchRequest)
+//      let response = try await apiClient.request(apiRequest: request)
 //      XCTAssertTrue(response.count > 0)
 //      XCTAssertTrue(response.first!.id > 0)
 //      XCTAssertEqual(response.first!.name, "APIKit")
