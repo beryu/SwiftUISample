@@ -22,7 +22,10 @@ let package = Package(
       name: "Constants"
     ),
     .target(
-      name: "SharedExtension"
+      name: "SharedExtension",
+      dependencies: [
+        "SharedResource"
+      ]
     ),
     .target(
       name: "SharedResource",

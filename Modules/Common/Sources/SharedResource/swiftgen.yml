@@ -7,3 +7,12 @@ strings:
     output: Generated/Strings.swift
     params:
       publicAccess: true
+
+xcassets:
+  inputs:
+    - Colors.xcassets
+  outputs:
+    - templateName: swift5
+      output: Generated/Assets.swift
+      params:
+        publicAccess: true
