@@ -55,8 +55,8 @@ public struct UserDetailRowView: View {
             Text(L10n.Common.Follower.Text.multi)
               .bodyText()
           }
-          Spacer()
-            .frame(width: 4)
+        }
+        HStack(spacing: 4) {
           Text("\(following)")
             .bodyBoldText()
           Text(L10n.Common.Following.text)

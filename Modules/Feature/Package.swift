@@ -52,6 +52,7 @@ let package = Package(
       name: "UserList",
       dependencies: [
         "Components",
+        "UserDetail",
         .product(name: "SharedExtension", package: "Common"),
         .product(name: "SharedResource", package: "Common"),
         .product(name: "Entities", package: "Repository"),
@@ -63,6 +64,7 @@ let package = Package(
       name: "SearchUser",
       dependencies: [
         "Components",
+        "UserDetail",
         .product(name: "SharedExtension", package: "Common"),
         .product(name: "SharedResource", package: "Common"),
         .product(name: "Entities", package: "Repository"),
