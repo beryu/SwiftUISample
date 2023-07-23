@@ -8,6 +8,7 @@ public struct RepoEntity: Equatable {
   public var description: String?
   public var language: String?
   public var isFork: Bool
+  public var htmlURL: URL
 
   public init(
     id: Int,
@@ -16,7 +17,8 @@ public struct RepoEntity: Equatable {
     stargazersCount: Int,
     description: String? = nil,
     language: String? = nil,
-    isFork: Bool
+    isFork: Bool,
+    htmlURL: URL
   ) {
     self.id = id
     self.name = name
@@ -25,5 +27,6 @@ public struct RepoEntity: Equatable {
     self.description = description
     self.language = language
     self.isFork = isFork
+    self.htmlURL = htmlURL
   }
 }

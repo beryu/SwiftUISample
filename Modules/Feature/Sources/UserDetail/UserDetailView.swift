@@ -6,6 +6,7 @@ import UserRepository
 import SharedExtension
 import SharedResource
 import SwiftUI
+import WebView
 
 public struct UserDetailView: View {
   @ObservedObject private var viewModel: UserDetailViewModel
@@ -39,15 +40,25 @@ public struct UserDetailView: View {
         } else {
           ForEach(0 ..< viewModel.repos.count, id: \.self) { index in
             let repo = viewModel.repos[index]
-            RepoRowView(
-              name: repo.name,
-              language: repo.language ?? "",
-              stargazersCount: repo.stargazersCount,
-              description: repo.description ?? ""
-            )
+            Button(action: {
+              viewModel.repositoryURL = repo.htmlURL
+              viewModel.isRepositoryPresented.toggle()
+            }) {
+              RepoRowView(
+                name: repo.name,
+                language: repo.language ?? "",
+                stargazersCount: repo.stargazersCount,
+                description: repo.description ?? ""
+              )
+            }
+            .sheet(isPresented: $viewModel.isRepositoryPresented) {
+              if let url = viewModel.repositoryURL {
+                WebView(url: url)
+              }
+            }
             .onAppear {
               // for infinite loading
-              if index > viewModel.repos.count - 5 {
+              if index > viewModel.repos.count - 10 {
                 Task {
                   await viewModel.loadNextPageIfNeeded()
                 }
@@ -123,7 +134,8 @@ struct RepoRepositoryMock: RepoRepository {
         name: "APIKit",
         fullName: "beryu/APIKit",
         stargazersCount: 0,
-        isFork: true
+        isFork: true,
+        htmlURL: URL(string: "https://github.com/beryu/APIKit")!
       ),
       .init(
         id: 663242141,
@@ -131,14 +143,16 @@ struct RepoRepositoryMock: RepoRepository {
         fullName: "beryu/SwiftUISample",
         stargazersCount: 2,
         description: "for training a modern iOS architecture",
-        isFork: false
+        isFork: false,
+        htmlURL: URL(string: "https://github.com/beryu/SwiftUISample")!
       ),
       .init(
         id: 136936433,
         name: "SiriShortcutsSample",
         fullName: "beryu/SiriShortcutsSample",
         stargazersCount: 13,
-        isFork: false
+        isFork: false,
+        htmlURL: URL(string: "https://github.com/beryu/SiriShortcutsSample")!
       ),
     ]
   }

@@ -15,6 +15,7 @@ let package = Package(
     .library(name: "UserDetail", targets: ["UserDetail"]),
     .library(name: "UserList", targets: ["UserList"]),
     .library(name: "SearchUser", targets: ["SearchUser"]),
+    .library(name: "WebView", targets: ["WebView"]),
   ],
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.5.1"),
@@ -40,6 +41,7 @@ let package = Package(
       name: "UserDetail",
       dependencies: [
         "Components",
+        "WebView",
         .product(name: "SharedExtension", package: "Common"),
         .product(name: "SharedResource", package: "Common"),
         .product(name: "Entities", package: "Repository"),
@@ -70,6 +72,12 @@ let package = Package(
         .product(name: "Entities", package: "Repository"),
         .product(name: "UserRepository", package: "Repository"),
         .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
+    .target(
+      name: "WebView",
+      dependencies: [
+        "Components",
       ]
     ),
     .testTarget(

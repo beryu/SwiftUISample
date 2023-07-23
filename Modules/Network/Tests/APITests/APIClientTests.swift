@@ -51,9 +51,10 @@ final class APIClientTests: XCTestCase {
 //      let response = try await apiClient.request(apiRequest: request)
 //      XCTAssertTrue(response.count > 0)
 //      XCTAssertTrue(response.first!.id > 0)
-//      XCTAssertEqual(response.first!.name, "APIKit")
-//      XCTAssertEqual(response.first!.description, "Type-safe networking abstraction layer that associates request type with response type.")
+//      XCTAssertEqual(response.first!.name, "SwiftUISample")
+//      XCTAssertEqual(response.first!.description, "for training a modern iOS architecture")
 //      XCTAssertEqual(response.first!.language, "Swift")
+//      XCTAssertEqual(response.first!.htmlURL.absoluteString, "https://github.com/beryu/SwiftUISample")
 //    } catch {
 //      XCTFail("Unexpected error: " + error.localizedDescription)
 //    }
