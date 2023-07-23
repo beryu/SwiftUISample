@@ -110,8 +110,14 @@ struct UserRepositoryMock: UserRepository {
 }
 
 struct RepoRepositoryMock: RepoRepository {
-  func repositories(login: String, page: Int) async throws -> [Entities.RepoEntity] {
-    [
+  func repositories(login: String, page: Int) async throws -> [RepoEntity] {
+    if page >= 3 {
+      throw RepoRepositoryError.unknown
+    }
+    if page >= 2 {
+      return [] // NOTE: Comment out when test error dialog
+    }
+    return [
       .init(
         id: 176659883,
         name: "APIKit",

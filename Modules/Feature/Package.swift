@@ -80,6 +80,13 @@ let package = Package(
       ]
     ),
     .testTarget(
+      name: "UserDetailTests",
+      dependencies: [
+        "UserDetail",
+        .product(name: "Dependencies", package: "swift-dependencies"),
+      ]
+    ),
+    .testTarget(
       name: "UserListTests",
       dependencies: [
         "UserList",
