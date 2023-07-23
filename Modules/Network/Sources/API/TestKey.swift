@@ -1,14 +1,12 @@
 import Dependencies
 import Foundation
 
-extension APIClient: TestDependencyKey {
-  public static var testValue: APIClient = .init(
-    request: unimplemented("\(Self.self).request")
-  )
+extension APIClientKey: TestDependencyKey {
+  public static var testValue: any APIClient = APIClientImpl(urlSession: .shared)
 }
 
 #if DEBUG
-public func mockResponse(
+func mockResponse(
   value: String = "",
   statusCode: Int = 200
 ) -> (Data, URLResponse) {
@@ -21,5 +19,18 @@ public func mockResponse(
       headerFields: nil
     )!
   )
+}
+
+public struct APIClientMock: APIClient {
+  public var response: [Int: Any]
+
+  public init(response: [Int: Any]) {
+    self.response = response
+  }
+
+  public func request<T: APIRequest>(apiRequest: T) async throws -> T.Response {
+    let key = apiRequest.hashValue
+    return response[key] as! T.Response
+  }
 }
 #endif

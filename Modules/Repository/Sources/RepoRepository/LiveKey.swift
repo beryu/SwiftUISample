@@ -2,15 +2,22 @@ import API
 import Dependencies
 import Entities
 
-extension RepoRepository: DependencyKey {
-  public static var liveValue: Self = {
-    @Dependency(\.apiClient) var apiClient
+public enum RepoRepositoryKey: DependencyKey {
+  public static var liveValue: RepoRepository = RepoRepositoryImpl()
+}
 
-    return Self(
-      repositories: { user, page -> [RepoEntity] in
-        let response = try await apiClient.request(GitHubUserReposRequest(user: user, page: page))
-        return response.map({ RepoEntity.init(repo: $0) })
-      }
-    )
-  }()
+extension DependencyValues {
+  public var repoRepository: RepoRepository {
+    get { self[RepoRepositoryKey.self] }
+    set { self[RepoRepositoryKey.self] = newValue }
+  }
+}
+
+struct RepoRepositoryImpl: RepoRepository {
+  @Dependency(\.apiClient) var apiClient
+
+  func repositories(user: String, page: Int) async throws -> [RepoEntity] {
+    let response = try await apiClient.request(apiRequest: GitHubUserReposRequest(user: user, page: page))
+    return response.map({ RepoEntity.init(repo: $0) })
+  }
 }
