@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Root
 
 @main
 struct GitHubViewerApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      RootView()
     }
+  }
 }
