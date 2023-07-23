@@ -9,7 +9,7 @@ final class UserRepositoryTests: XCTestCase {
 
   override func setUp() async throws {
     apiClient = APIClientMock(response: [
-      GitHubUsersRequest(page: 1).hashValue: [
+      GitHubUsersRequest(since: nil).hashValue: [
         GitHubUserResponse(
           id: 1,
           login: "beryu",
@@ -45,7 +45,7 @@ final class UserRepositoryTests: XCTestCase {
     }, operation: {
       UserRepositoryKey.liveValue
     })
-    let users = try await userRepository.users(page: 1)
+    let users = try await userRepository.users(since: nil)
     XCTAssertEqual(users.count, 2)
     XCTAssertEqual(users.first!.login, "beryu")
     XCTAssertEqual(users.first!.avatarURL.absoluteString, "https://avatars.githubusercontent.com/u/202968?v=4")

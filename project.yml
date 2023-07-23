@@ -27,6 +27,8 @@ targets:
     dependencies:
       - package: Common
         product: SharedResource
+      - package: Feature
+        product: Root
       - package: Repository
         product: Entities
       - package: Repository
@@ -38,6 +40,8 @@ packages:
   # Local packages
   Common:
     path: ./Modules/Common
+  Feature:
+    path: ./Modules/Feature
   Network:
     path: ./Modules/Network
   Repository:

@@ -9,7 +9,7 @@ final class APIClientTests: XCTestCase {
   @Dependency(\.apiClient) var apiClient
   
 //  func testGitHubUsersRequest() async throws {
-//    let searchRequest = GitHubUsersRequest(page: 1)
+//    let searchRequest = GitHubUsersRequest(since: nil)
 //    do {
 //      let response = try await apiClient.request(apiRequest: searchRequest)
 //      XCTAssertTrue(response.count > 0)
