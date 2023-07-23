@@ -1,6 +1,10 @@
 # GitHubViewer
 for training a modern iOS architecture
 
+| top | user search | user detail |
+| --- | --- | --- |
+| ![top](Assets/top.png) | ![user search](Assets/user_search.png) | ![user detail](Assets/user_detail.png) |
+
 ## Requirements
 - Xcode 14.3.1
 
