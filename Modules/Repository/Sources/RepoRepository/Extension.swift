@@ -10,7 +10,8 @@ extension RepoEntity {
       stargazersCount: repo.stargazersCount,
       description: repo.description,
       language: repo.language,
-      isFork: repo.fork
+      isFork: repo.fork,
+      htmlURL: repo.htmlURL
     )
   }
 }

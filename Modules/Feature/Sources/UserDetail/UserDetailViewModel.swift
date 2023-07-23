@@ -1,12 +1,16 @@
 import Combine
 import Dependencies
 import Entities
+import Foundation
 import RepoRepository
 import UserRepository
 
 @MainActor
 final class UserDetailViewModel: ObservableObject {
   @Published var isErrorAlertShown: Bool = false
+  @Published var isRepositoryPresented: Bool = false
+  var repositoryURL: URL?
+
   @Published private(set) var user: UserDetailEntity? = nil
   @Published private(set) var repos: [RepoEntity] = []
   @Published private(set) var isUserDetailLoading: Bool = false

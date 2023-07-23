@@ -8,6 +8,18 @@ public struct GitHubUserRepoResponse: Decodable {
   public var description: String?
   public var language: String?
   public var fork: Bool
+  public var htmlURL: URL
+
+  public enum CodingKeys: String, CodingKey {
+    case id
+    case name
+    case fullName
+    case stargazersCount
+    case description
+    case language
+    case fork
+    case htmlURL = "htmlUrl"
+  }
 
   public init(
     id: Int,
@@ -16,7 +28,8 @@ public struct GitHubUserRepoResponse: Decodable {
     stargazersCount: Int,
     description: String? = nil,
     language: String? = nil,
-    fork: Bool
+    fork: Bool,
+    htmlURL: URL
   ) {
     self.id = id
     self.name = name
@@ -25,5 +38,6 @@ public struct GitHubUserRepoResponse: Decodable {
     self.description = description
     self.language = language
     self.fork = fork
+    self.htmlURL = htmlURL
   }
 }
