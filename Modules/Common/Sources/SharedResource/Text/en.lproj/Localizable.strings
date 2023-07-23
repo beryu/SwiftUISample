@@ -14,6 +14,11 @@
 
 "Common.title.text" = "GitHub Viewer";
 "Common.loading.text" = "Loading...";
+"Common.follower.text.single" = "follower";
+"Common.follower.text.multi" = "followers";
+"Common.following.text" = "following";
+"Common.star.text.single" = "star";
+"Common.star.text.multi" = "stars";
 
 "UserList.loadError.alert.title" = "Error was occured when loading";
 "UserList.loadError.alert.message" = "Please scroll to top and pull to refresh";
@@ -22,3 +27,6 @@
 "SearchUser.empty.text" = "Start search with enter an user name to the above text field";
 "SearchUser.loadError.alert.title" = "Error was occured when loading";
 "SearchUser.loadError.alert.message" = "Please scroll to top and pull to refresh";
+
+"UserDetail.loadError.alert.title" = "Error was occured when loading";
+"UserDetail.loadError.alert.message" = "Please scroll to top and pull to refresh";

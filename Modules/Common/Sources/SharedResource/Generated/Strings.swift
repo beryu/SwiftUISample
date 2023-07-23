@@ -11,9 +11,29 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum L10n {
   public enum Common {
+    public enum Follower {
+      public enum Text {
+        /// followers
+        public static let multi = L10n.tr("Localizable", "Common.follower.text.multi", fallback: "followers")
+        /// follower
+        public static let single = L10n.tr("Localizable", "Common.follower.text.single", fallback: "follower")
+      }
+    }
+    public enum Following {
+      /// following
+      public static let text = L10n.tr("Localizable", "Common.following.text", fallback: "following")
+    }
     public enum Loading {
       /// Loading...
       public static let text = L10n.tr("Localizable", "Common.loading.text", fallback: "Loading...")
+    }
+    public enum Star {
+      public enum Text {
+        /// stars
+        public static let multi = L10n.tr("Localizable", "Common.star.text.multi", fallback: "stars")
+        /// star
+        public static let single = L10n.tr("Localizable", "Common.star.text.single", fallback: "star")
+      }
     }
     public enum Title {
       /// # Naming rules
@@ -46,6 +66,16 @@ public enum L10n {
     public enum SearchBar {
       /// Enter an user name...
       public static let placeholder = L10n.tr("Localizable", "SearchUser.searchBar.placeholder", fallback: "Enter an user name...")
+    }
+  }
+  public enum UserDetail {
+    public enum LoadError {
+      public enum Alert {
+        /// Please scroll to top and pull to refresh
+        public static let message = L10n.tr("Localizable", "UserDetail.loadError.alert.message", fallback: "Please scroll to top and pull to refresh")
+        /// Error was occured when loading
+        public static let title = L10n.tr("Localizable", "UserDetail.loadError.alert.title", fallback: "Error was occured when loading")
+      }
     }
   }
   public enum UserList {

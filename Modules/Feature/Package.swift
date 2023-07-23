@@ -25,6 +25,7 @@ let package = Package(
       name: "Components",
       dependencies: [
         .product(name: "SharedExtension", package: "Common"),
+        .product(name: "SharedResource", package: "Common"),
       ]
     ),
     .target(
